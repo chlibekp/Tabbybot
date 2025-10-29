@@ -5,12 +5,50 @@ import (
 	"os"
 	"tabbybot/internal/config"
 	"tabbybot/internal/discord/commands"
+	"tabbybot/internal/metrics"
+
+	"time"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/google/uuid"
 )
 
+func handleCommands(s *discordgo.Session, i *discordgo.InteractionCreate) {
+	var err error
+	switch i.ApplicationCommandData().Name {
+	case commands.InfoCommand.Name:
+		err = commands.Info(s, i)
+	}
+
+	if err != nil {
+		slog.Error("Error handling command", "error", err)
+
+		errorUuid := uuid.New().String()
+
+		// Add error message to embed
+		errorEmbed := &discordgo.MessageEmbed{
+			Title:       "Error | An error has occured",
+			Description: "Please contact the bot developer with the following error ID \n `" + errorUuid + "`",
+			Color:       0xFF0000,
+		}
+
+		s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
+			Type: discordgo.InteractionResponseChannelMessageWithSource,
+			Data: &discordgo.InteractionResponseData{
+				Embeds: []*discordgo.MessageEmbed{errorEmbed},
+			},
+		})
+	}
+}
+
 func commandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
-	slog.Debug("Received interaction", "type", i.Type, "name", i.ApplicationCommandData().Name)
+	// Select handler based on the interaction type
+	switch i.Type {
+	case discordgo.InteractionApplicationCommand:
+		slog.Debug("Received interaction", "type", i.Type, "name", i.ApplicationCommandData().Name)
+		// Handle command
+		go handleCommands(s, i)
+	}
 }
 
 func registerCommands(s *discordgo.Session) error {
@@ -55,6 +93,7 @@ func NewBot() *Bot {
 
 func (b *Bot) Start() {
 	slog.Info("Opening Discord sessions...")
+	metrics.StartTime = time.Now()
 	err := b.Session.Open()
 	if err != nil {
 		panic(err)
