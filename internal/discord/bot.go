@@ -94,8 +94,7 @@ func NewBot() *Bot {
 func (b *Bot) Start() {
 	slog.Info("Opening Discord sessions...")
 	metrics.StartTime = time.Now()
-	err := b.Session.Open()
-	if err != nil {
+	if err := b.Session.Open(); err != nil {
 		panic(err)
 	}
 	slog.Info("Discord sessions opened.")
@@ -104,8 +103,7 @@ func (b *Bot) Start() {
 
 func (b *Bot) Close() {
 	slog.Info("Closing Discord sessions...")
-	err := b.Session.Close()
-	if err != nil {
+	if err := b.Session.Close(); err != nil {
 		panic(err)
 	}
 	slog.Info("Discord sessions closed.")

@@ -27,8 +27,8 @@ func (s *Server) Close() error {
 	slog.Info("Closing HTTP server...")
 
 	// Close the HTTP server
-	err := s.Server.Close()
-	if err != nil {
+
+	if err := s.Server.Close(); err != nil {
 		return err
 	}
 	slog.Info("HTTP Server has been closed")
