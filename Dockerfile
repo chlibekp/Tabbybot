@@ -1,6 +1,3 @@
-# syntax=docker/dockerfile:1
-
-# Minimal Dockerfile for a plain Go project (no logic)
 FROM golang:1.21-alpine AS builder
 WORKDIR /app
 COPY go.mod .
