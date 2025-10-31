@@ -6,8 +6,6 @@ name: Go
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
 
@@ -26,6 +24,6 @@ jobs:
 
     - name: Release
       uses: softprops/action-gh-release@v2
-      if: github.ref_type == 'tag'
+      if: github.ref == 'refs/heads/main'
       with:
         files: dist/tabbybot
