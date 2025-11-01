@@ -5,8 +5,8 @@ import (
 	"runtime"
 	"time"
 
-	"tabbybot/internal/config"
-	"tabbybot/internal/metrics"
+	"tabbybot/pkg/config"
+	"tabbybot/pkg/metrics"
 
 	"github.com/bwmarrin/discordgo"
 )

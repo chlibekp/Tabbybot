@@ -3,7 +3,7 @@ package http
 import (
 	"log/slog"
 	"net/http"
-	"tabbybot/internal/config"
+	"tabbybot/pkg/config"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )

@@ -3,9 +3,9 @@ package discord
 import (
 	"log/slog"
 	"os"
-	"tabbybot/internal/config"
-	"tabbybot/internal/discord/commands"
-	"tabbybot/internal/metrics"
+	"tabbybot/pkg/config"
+	"tabbybot/pkg/discord/commands"
+	"tabbybot/pkg/metrics"
 
 	"time"
 

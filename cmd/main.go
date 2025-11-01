@@ -5,10 +5,10 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"tabbybot/internal/config"
-	"tabbybot/internal/discord"
-	"tabbybot/internal/http"
-	"tabbybot/internal/util"
+	"tabbybot/pkg/config"
+	"tabbybot/pkg/discord"
+	"tabbybot/pkg/http"
+	"tabbybot/pkg/util"
 )
 
 func main() {

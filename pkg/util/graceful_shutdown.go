@@ -2,7 +2,7 @@ package util
 
 import (
 	"log/slog"
-	"tabbybot/internal/http"
+	"tabbybot/pkg/http"
 )
 
 func GracefulShutdown(httpServer *http.Server) {

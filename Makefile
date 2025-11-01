@@ -1,4 +1,4 @@
 dev:
-	go run cmd/tabbybot/main.go
+	go run cmd/main.go
 build:
-	go build -o dist/tabbybot cmd/tabbybot/main.go 
+	go build -o dist/tabbybot cmd/main.go 
